@@ -8,10 +8,10 @@ const Banner = () => {
 
     return (
         <div>
-            <div className="carousel w-full h-[600px]">
+            <div className="carousel w-full h-[600px] rounded-2xl">
                 <div id="slide1" className="carousel-item relative w-full">
                     <img src={img1} className="w-full" />
-                    <div className="absolute  flex h-full  bottom-0 text bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)]">
+                    <div className="absolute  flex items-center justify-start h-full  bottom-0 text bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)]">
                         <div className='text-3xl  text-white space-y-7  w-1/3 p-5 m-5'>
                             <h3 className='text-6xl font-bold'>Affordable Price For Car Servicing</h3>
                             <p>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
