@@ -4,11 +4,11 @@ import person from '../../../assets/images/about_us/person.jpg'
 
 const About = () => {
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen bg-base-200 rounded-xl">
             <div className="hero-content flex-col lg:flex-row">
-                <div className='lg:w-1/2 relative'>
-                    <div>
-                        <img src={person} className="max-w-sm rounded-lg shadow-2xl" />
+                <div className='lg:w-1/2 '>
+                    <div className='relative'>
+                        <img src={person} className="w-3/4 rounded-lg shadow-2xl" />
                         <img src={parts} className="w-1/2  rounded-lg shadow-2xl absolute -bottom-10 -right-1 border-8" />
                     </div>
                 </div>
@@ -19,7 +19,7 @@ const About = () => {
                         <p className="py-6">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, <br />
                             by injected humour, or randomized words which do not look even slightly believable.</p>
                         <p>the majority have suffered alteration in some form, by injected humour, or randomized words which do not look even slightly believable. </p>
-                        <button className="btn btn-primary">Get more info</button>
+                        <button className="btn btn-warning">Get more info</button>
                     </div>
                 </div>
             </div>
