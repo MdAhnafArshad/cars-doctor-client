@@ -1,7 +1,11 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
+    
+    const {createUser} = useContext(AuthContext)
 
     const handleRegister = (event) => {
         event.preventDefault();
@@ -10,6 +14,14 @@ const Register = () => {
         const password = form.password.value
         const confirmPassword = form.confirmPassword.value
         console.log(email, password, confirmPassword);
+
+
+        createUser(email, password, confirmPassword)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+            })
+            .catch(error => console.log(error))
     }
 
     return (
