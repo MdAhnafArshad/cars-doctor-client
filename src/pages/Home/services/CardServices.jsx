@@ -2,7 +2,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const CardServices = ({ service }) => {
-    const {  _id, title, img, description, service_id, price } = service;
+    const {  _id, title, img, price } = service;
     console.log(_id);
     return (
         <div className="card w-96 bg-base-100 shadow-xl border">
@@ -15,7 +15,7 @@ const CardServices = ({ service }) => {
                     <p className='text-2xl font-bold text-orange-500'>${price}</p>
                 </div>
                 <div className="card-actions">
-                    <Link to={_id}>
+                    <Link to={`checkout/${_id}`}>
                     <button className="btn btn-primary rounded-full"><FaArrowRight /></button>
                     </Link>
                 </div>
