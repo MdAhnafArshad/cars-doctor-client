@@ -14,16 +14,20 @@ import Swal from 'sweetalert2'
 const CheckOut = () => {
 
     const service = useLoaderData()
-    const { _id, title, service_id, price } = service;
+    const {  title, service_id, price, img } = service;
     const { user } = useContext(AuthContext);
 
     const [selected, setSelected]= useState('');
 
+
+
+    
     const handleServices = event => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
         const dueAmount = form.dueAmount.value;
+        const email = form.email.value;
         // const date = form.date.value;
         const  booking = {
             name,
@@ -31,6 +35,8 @@ const CheckOut = () => {
             date:selected,
             service_id,
             serviceName: title,
+            img,
+            email
             
         }
         // console.log(booking);
@@ -51,7 +57,7 @@ const CheckOut = () => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'Your booking has been saved',
                     showConfirmButton: false,
                     timer: 1500
                   })
@@ -93,7 +99,7 @@ const CheckOut = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="text" defaultValue={user?.email} placeholder="email" className="input input-bordered" />
+                            <input type="text" name="email" defaultValue={user?.email} placeholder="email" className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
