@@ -6,7 +6,6 @@ const Booking = () => {
 
     const { user } = useContext(AuthContext);
     const [booking, setBooking] = useState([]);
-    const {_id, img}= booking;
 
 
     const url = `http://localhost:5000/booking/?email=${user?.email}`
@@ -27,25 +26,24 @@ const Booking = () => {
                     <thead>
                         <tr>
                             <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
+                                Check box
                             </th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
+                            <th>Email</th>
+                            <th>Booking Id</th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* row 1 */}
                         {
-                            booking?.map(res => <BookingRow
-                            key={_id}
-                            booking={booking}
+                            booking.map(booking => <BookingRow
+                                key={booking._id}
+                                booking={booking}
                             ></BookingRow>)
                         }
                     </tbody>
+
                 </table>
             </div>
         </div>

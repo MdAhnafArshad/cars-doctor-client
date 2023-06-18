@@ -7,6 +7,7 @@ import Main from "../pages/Layout/Main";
 import Login from "../pages/login/Login";
 import Register from "../pages/login/Register";
 import ErrorPage from "../pages/shared/404/ErrorPage";
+import PrivateRout from "./PrivateRout";
 
 
 
@@ -36,8 +37,8 @@ const router = createBrowserRouter([
         },
         {
           path:"/booking",
-          element: <Booking></Booking>,
-          
+          element: <PrivateRout><Booking></Booking></PrivateRout>,
+
         }
       ],
     },
