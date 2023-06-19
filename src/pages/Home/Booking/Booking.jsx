@@ -14,8 +14,11 @@ const Booking = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => setBooking(data))
-    }, []);
+    }, [url]);
 
+
+
+    // delete operation 
     const handleDelete = id => {
 
 
@@ -28,10 +31,11 @@ const Booking = () => {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
+            // console.log(result);
             if (result.isConfirmed) {
                 Swal.fire(
                     'Deleted!',
-                    'Your file has been deleted.',
+                    'Your booking has been deleted.',
                     'success'
                 )
 
@@ -50,12 +54,38 @@ const Booking = () => {
             }
         })
 
-
         // const proceed = confirm('Are you sure you want to delete')
 
     }
 
 
+
+    // update operation or patch operation
+    const handleBookingConfirm = id => {
+        fetch(`http://localhost:5000/booking/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ status: 'confirm' })
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if(data.modifiedCount > 0){
+                    // update state
+                    const remaining = booking.filter(booking => booking._id !== id);
+                    const updated = booking.find(booking => booking._id === id);
+                    updated.status = 'confirm';
+                    const newBooking = [updated, ...remaining];
+                    setBooking(newBooking);
+                    console.log(newBooking);
+                }
+                console.log(data);
+            
+            
+            });
+    }
 
     return (
         <div>
@@ -82,6 +112,7 @@ const Booking = () => {
                                 key={booking._id}
                                 booking={booking}
                                 handleDelete={handleDelete}
+                                handleBookingConfirm={handleBookingConfirm}
                             ></BookingRow>)
                         }
                     </tbody>
