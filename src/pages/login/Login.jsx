@@ -1,6 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
+import { AuthContext } from '../../provider/AuthProvider';
 const Login = () => {
+
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
+    const navigate= useNavigate();
+    const {logInUser} = useContext(AuthContext);
+
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -8,6 +16,15 @@ const Login = () => {
         const email = form.email.value
         const password = form.password.value
         console.log(email, password);
+
+        // user login 
+        logInUser(email, password)
+        .then((res) => {
+
+            // navigate to redirect page using login
+            navigate(from , {replace: true})
+            console.log(res);})
+        .catch((error) => {alert(error.message);});
 
 
     }
@@ -35,7 +52,7 @@ const Login = () => {
                             <input type="password" name='password' placeholder="password" className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
-                            <input type="button" className="btn btn-outline btn-error" value="submit" />
+                            <input type="submit" className="btn btn-outline btn-error" value="submit" />
                         </div>
                         <Link to={'/register'} className="label-text-alt link link-hover">Register Now</Link>
                     </form>

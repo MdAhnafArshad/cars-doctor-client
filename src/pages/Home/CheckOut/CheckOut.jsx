@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import {  useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 // import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
@@ -61,7 +61,9 @@ const CheckOut = () => {
                     showConfirmButton: false,
                     timer: 1500
                   })
+                  
                   form.reset();
+                  
             }
         })
 
