@@ -1,11 +1,15 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
     
-    const {createUser} = useContext(AuthContext)
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    const navigate = useNavigate();
+    const {createUser} = useContext(AuthContext);
+    const [see, setSee] = useState(false);
 
     const handleRegister = (event) => {
         event.preventDefault();
@@ -20,10 +24,16 @@ const Register = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
+                //navigate user
+                navigate(from, {replace: true});
                 
             })
-            .catch(error => console.log(error))
+            .catch(error => alert(error))
     }
+
+    const handlePassword = () => {
+        setSee(!see);
+    };
 
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -44,13 +54,14 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">password</span>
                             </label>
-                            <input type="password" placeholder="password" name='password' className="input input-bordered" />
+                            <input type={see ? "text" : "password"}  placeholder="password" name='password' className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Confirm-Password</span>
                             </label>
-                            <input type="password" name='confirmPassword' placeholder="confirmPassword" className="input input-bordered" />
+                            <input type={see ? "text" : "password"}  name='confirmPassword' placeholder="confirmPassword" className="input input-bordered" />
+                            <input onClick={handlePassword} type="checkbox"  className="my-5 toggle"/> <span>see</span>
                         </div>
                         <div className="form-control mt-6">
                             <input type="submit" className="btn btn-outline btn-error" value="submit" />

@@ -1,14 +1,15 @@
-import { useContext } from 'react';
-import { Link, useLocation, useNavigate} from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../provider/AuthProvider';
 const Login = () => {
 
-    const location = useLocation()
+    const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-    const navigate= useNavigate();
-    const {logInUser} = useContext(AuthContext);
-
+    const navigate = useNavigate();
+    const { logInUser } = useContext(AuthContext);
+    const [see, setSee] = useState(false);
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -19,15 +20,28 @@ const Login = () => {
 
         // user login 
         logInUser(email, password)
-        .then((res) => {
+            .then((res) => {
 
-            // navigate to redirect page using login
-            navigate(from , {replace: true})
-            console.log(res);})
-        .catch((error) => {alert(error.message);});
+                // navigate to redirect page using login
+                navigate(from, { replace: true })
+                console.log(res);
+            })
+            .catch((error) => {
+                // alert(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${error.message}`,
+                })
+
+            });
 
 
     }
+
+    const handlePassword = () => {
+        setSee(!see);
+    };
 
 
     return (
@@ -49,7 +63,10 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                            <div>
+                                <input type={see ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" />
+                                <input onClick={handlePassword} type="checkbox" className="my-5 toggle" />
+                            </div>
                         </div>
                         <div className="form-control mt-6">
                             <input type="submit" className="btn btn-outline btn-error" value="submit" />
