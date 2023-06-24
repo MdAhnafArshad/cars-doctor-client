@@ -21,10 +21,30 @@ const Login = () => {
         // user login 
         logInUser(email, password)
             .then((res) => {
+                console.log('24. check log user: ', res);
+                const user = res.user;
+                const loggedUser = { email: user.email }
 
-                // navigate to redirect page using login
-                navigate(from, { replace: true })
-                console.log(res);
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(loggedUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('37. response jwt', data)
+
+                        // store to the local storage 
+                        //warning: LocalStorage is not a best place to store Access token (second best place )
+                        localStorage.setItem('car-access-token', data.token);
+
+                        // navigate to redirect page using login
+                        navigate(from, { replace: true });
+                    });
+
+
             })
             .catch((error) => {
                 // alert(error.message);

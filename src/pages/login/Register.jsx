@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../provider/AuthProvider';
 
@@ -28,7 +29,16 @@ const Register = () => {
                 navigate(from, {replace: true});
                 
             })
-            .catch(error => alert(error))
+            .catch(error => 
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${error.message}`,
+            })
+            
+            
+            
+            )
     }
 
     const handlePassword = () => {
